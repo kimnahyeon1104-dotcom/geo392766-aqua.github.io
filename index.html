@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_67b90e92087b0c59af0419c5de9f3fb3 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_67b90e92087b0c59af0419c5de9f3fb3" ></div>
+        
+    
+<div style="position:fixed; bottom:25px; right:25px; z-index:9999; background:#fff; border:1.5px solid #888; border-radius:8px; padding:10px 12px; font-family:'Malgun Gothic',sans-serif; font-size:12px;">
+  <b>침수 취약성 버퍼 범례</b><br>
+  <span style="color:#d73027;">●</span> 5등급 매우위험 (600m)<br>
+  <span style="color:#fc8d59;">●</span> 4등급 위험 (400m)<br>
+  <span style="color:#fee08b;">●</span> 3등급 주의 (300m)<br>
+  <span style="color:#91bfdb;">●</span> 2등급 낮음 (200m)<br>
+  <span style="color:#4575b4;">●</span> 1등급 매우낮음 (100m)
+</div>
+</body>
+<script>
+    
+    
+            var map_67b90e92087b0c59af0419c5de9f3fb3 = L.map(
+                "map_67b90e92087b0c59af0419c5de9f3fb3",
+                {
+                    center: [37.53, 126.98],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_e24a8075e5dfbbefd834bf280457076f = L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Esri",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_e24a8075e5dfbbefd834bf280457076f.addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+            var tile_layer_bc0e7def86fdb0c31e335d09b342cdaf = L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Esri",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_bc0e7def86fdb0c31e335d09b342cdaf.addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+            var tile_layer_ffc38e4d125676e7582428280a24db74 = L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Esri",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_ffc38e4d125676e7582428280a24db74.addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+            var circle_97002f393026c2259ff8ea7857abaa2b = L.circle(
+                [37.4784, 126.9516],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.22, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 600, "stroke": true, "weight": 2}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_4d14e32bdd727b2ea0a343dd4c39167a = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_06395808d497e12656c586fa6e6f78fd = $(`<div id="html_06395808d497e12656c586fa6e6f78fd" style="width: 100.0%; height: 100.0%;"><b>[관악구] 다세대주택(반지하)</b><br>5등급: 매우 위험 (버퍼 600m)<br>노후연수: 32년 / 고도: 8.5m</div>`)[0];
+                popup_4d14e32bdd727b2ea0a343dd4c39167a.setContent(html_06395808d497e12656c586fa6e6f78fd);
+            
+        
+
+        circle_97002f393026c2259ff8ea7857abaa2b.bindPopup(popup_4d14e32bdd727b2ea0a343dd4c39167a)
+        ;
+
+        
+    
+    
+            circle_97002f393026c2259ff8ea7857abaa2b.bindTooltip(
+                `<div>
+                     관악구 | 5등급: 매우 위험
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_433183ba3856ef8693fae37760fa9706 = L.circleMarker(
+                [37.4784, 126.9516],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_71879947159d908dfe1bfbe5dcaf054e = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_b0582728d66805605e2c23f29a8ea043 = $(`<div id="html_b0582728d66805605e2c23f29a8ea043" style="width: 100.0%; height: 100.0%;"><b>[관악구] 다세대주택(반지하)</b><br>5등급: 매우 위험 (버퍼 600m)<br>노후연수: 32년 / 고도: 8.5m</div>`)[0];
+                popup_71879947159d908dfe1bfbe5dcaf054e.setContent(html_b0582728d66805605e2c23f29a8ea043);
+            
+        
+
+        circle_marker_433183ba3856ef8693fae37760fa9706.bindPopup(popup_71879947159d908dfe1bfbe5dcaf054e)
+        ;
+
+        
+    
+    
+            circle_marker_433183ba3856ef8693fae37760fa9706.bindTooltip(
+                `<div>
+                     관악구 | 다세대주택(반지하) (5등급)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_a45ab9a14e2efecc1f4577d13ae44422 = L.circle(
+                [37.4812, 126.9465],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.22, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 600, "stroke": true, "weight": 2}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_6b3f7940355d2f43346f8955336f38bb = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_2ec960940652ef583dbb75b88de610b5 = $(`<div id="html_2ec960940652ef583dbb75b88de610b5" style="width: 100.0%; height: 100.0%;"><b>[관악구] 단독주택(반지하)</b><br>5등급: 매우 위험 (버퍼 600m)<br>노후연수: 28년 / 고도: 9.1m</div>`)[0];
+                popup_6b3f7940355d2f43346f8955336f38bb.setContent(html_2ec960940652ef583dbb75b88de610b5);
+            
+        
+
+        circle_a45ab9a14e2efecc1f4577d13ae44422.bindPopup(popup_6b3f7940355d2f43346f8955336f38bb)
+        ;
+
+        
+    
+    
+            circle_a45ab9a14e2efecc1f4577d13ae44422.bindTooltip(
+                `<div>
+                     관악구 | 5등급: 매우 위험
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_349adb26fc561f076f6f178572451dd6 = L.circleMarker(
+                [37.4812, 126.9465],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_a2c1e5a683d974747a0a4f3638cad8bc = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_206401413a7ec99f462f9cd770e56717 = $(`<div id="html_206401413a7ec99f462f9cd770e56717" style="width: 100.0%; height: 100.0%;"><b>[관악구] 단독주택(반지하)</b><br>5등급: 매우 위험 (버퍼 600m)<br>노후연수: 28년 / 고도: 9.1m</div>`)[0];
+                popup_a2c1e5a683d974747a0a4f3638cad8bc.setContent(html_206401413a7ec99f462f9cd770e56717);
+            
+        
+
+        circle_marker_349adb26fc561f076f6f178572451dd6.bindPopup(popup_a2c1e5a683d974747a0a4f3638cad8bc)
+        ;
+
+        
+    
+    
+            circle_marker_349adb26fc561f076f6f178572451dd6.bindTooltip(
+                `<div>
+                     관악구 | 단독주택(반지하) (5등급)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_d543c2c5ac0b28202b04cc6be0e2b52f = L.circle(
+                [37.4751, 126.958],
+                {"bubblingMouseEvents": true, "color": "#fc8d59", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fc8d59", "fillOpacity": 0.22, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 400, "stroke": true, "weight": 2}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_b1d0fd0cd202bda6b7e4a9ed7425ae2e = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_6456d9920a976b0d6f9f40eba560e992 = $(`<div id="html_6456d9920a976b0d6f9f40eba560e992" style="width: 100.0%; height: 100.0%;"><b>[관악구] 다세대주택</b><br>4등급: 위험 (버퍼 400m)<br>노후연수: 20년 / 고도: 11.2m</div>`)[0];
+                popup_b1d0fd0cd202bda6b7e4a9ed7425ae2e.setContent(html_6456d9920a976b0d6f9f40eba560e992);
+            
+        
+
+        circle_d543c2c5ac0b28202b04cc6be0e2b52f.bindPopup(popup_b1d0fd0cd202bda6b7e4a9ed7425ae2e)
+        ;
+
+        
+    
+    
+            circle_d543c2c5ac0b28202b04cc6be0e2b52f.bindTooltip(
+                `<div>
+                     관악구 | 4등급: 위험
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_9b1e29f51173ecf9d45884fd2fb0ffa3 = L.circleMarker(
+                [37.4751, 126.958],
+                {"bubblingMouseEvents": true, "color": "#fc8d59", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#fc8d59", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 1.5}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_70df2481a25e744b78cf74505fa81f36 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_935265b95dffab0a5f88b2b06372e4cb = $(`<div id="html_935265b95dffab0a5f88b2b06372e4cb" style="width: 100.0%; height: 100.0%;"><b>[관악구] 다세대주택</b><br>4등급: 위험 (버퍼 400m)<br>노후연수: 20년 / 고도: 11.2m</div>`)[0];
+                popup_70df2481a25e744b78cf74505fa81f36.setContent(html_935265b95dffab0a5f88b2b06372e4cb);
+            
+        
+
+        circle_marker_9b1e29f51173ecf9d45884fd2fb0ffa3.bindPopup(popup_70df2481a25e744b78cf74505fa81f36)
+        ;
+
+        
+    
+    
+            circle_marker_9b1e29f51173ecf9d45884fd2fb0ffa3.bindTooltip(
+                `<div>
+                     관악구 | 다세대주택 (4등급)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_60d1bfd429606335a22e54ebd8e57059 = L.circle(
+                [37.5085, 126.8915],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.22, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 600, "stroke": true, "weight": 2}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_2caca330e5c3d0afd48c80c3a9abfc7e = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_951f3e01bd473e0d8449032dc873161d = $(`<div id="html_951f3e01bd473e0d8449032dc873161d" style="width: 100.0%; height: 100.0%;"><b>[영등포구] 다가구주택(반지하)</b><br>5등급: 매우 위험 (버퍼 600m)<br>노후연수: 35년 / 고도: 7.8m</div>`)[0];
+                popup_2caca330e5c3d0afd48c80c3a9abfc7e.setContent(html_951f3e01bd473e0d8449032dc873161d);
+            
+        
+
+        circle_60d1bfd429606335a22e54ebd8e57059.bindPopup(popup_2caca330e5c3d0afd48c80c3a9abfc7e)
+        ;
+
+        
+    
+    
+            circle_60d1bfd429606335a22e54ebd8e57059.bindTooltip(
+                `<div>
+                     영등포구 | 5등급: 매우 위험
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_e535e6a163043f4da7d0a94682e24888 = L.circleMarker(
+                [37.5085, 126.8915],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_406afe3d026a650a9e9e83e1aba37f8b = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_b6d96792cc6e07fe8a9fad758bfcb1f6 = $(`<div id="html_b6d96792cc6e07fe8a9fad758bfcb1f6" style="width: 100.0%; height: 100.0%;"><b>[영등포구] 다가구주택(반지하)</b><br>5등급: 매우 위험 (버퍼 600m)<br>노후연수: 35년 / 고도: 7.8m</div>`)[0];
+                popup_406afe3d026a650a9e9e83e1aba37f8b.setContent(html_b6d96792cc6e07fe8a9fad758bfcb1f6);
+            
+        
+
+        circle_marker_e535e6a163043f4da7d0a94682e24888.bindPopup(popup_406afe3d026a650a9e9e83e1aba37f8b)
+        ;
+
+        
+    
+    
+            circle_marker_e535e6a163043f4da7d0a94682e24888.bindTooltip(
+                `<div>
+                     영등포구 | 다가구주택(반지하) (5등급)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_e2ce6b5fc814a360ce9af388262ca7e7 = L.circle(
+                [37.513, 126.885],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.22, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 600, "stroke": true, "weight": 2}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_c0f1d6d1f893ca1492ce2516c536b8ea = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_2c4c5daec7d85589371134ed4a0999e3 = $(`<div id="html_2c4c5daec7d85589371134ed4a0999e3" style="width: 100.0%; height: 100.0%;"><b>[영등포구] 다세대주택(반지하)</b><br>5등급: 매우 위험 (버퍼 600m)<br>노후연수: 30년 / 고도: 8.2m</div>`)[0];
+                popup_c0f1d6d1f893ca1492ce2516c536b8ea.setContent(html_2c4c5daec7d85589371134ed4a0999e3);
+            
+        
+
+        circle_e2ce6b5fc814a360ce9af388262ca7e7.bindPopup(popup_c0f1d6d1f893ca1492ce2516c536b8ea)
+        ;
+
+        
+    
+    
+            circle_e2ce6b5fc814a360ce9af388262ca7e7.bindTooltip(
+                `<div>
+                     영등포구 | 5등급: 매우 위험
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0060ab927aaf008499ac890c24ce6038 = L.circleMarker(
+                [37.513, 126.885],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_245b8736139b152feab695391283a690 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_1c3ca406683ce2eefa4ba62f2d866301 = $(`<div id="html_1c3ca406683ce2eefa4ba62f2d866301" style="width: 100.0%; height: 100.0%;"><b>[영등포구] 다세대주택(반지하)</b><br>5등급: 매우 위험 (버퍼 600m)<br>노후연수: 30년 / 고도: 8.2m</div>`)[0];
+                popup_245b8736139b152feab695391283a690.setContent(html_1c3ca406683ce2eefa4ba62f2d866301);
+            
+        
+
+        circle_marker_0060ab927aaf008499ac890c24ce6038.bindPopup(popup_245b8736139b152feab695391283a690)
+        ;
+
+        
+    
+    
+            circle_marker_0060ab927aaf008499ac890c24ce6038.bindTooltip(
+                `<div>
+                     영등포구 | 다세대주택(반지하) (5등급)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_0097be43c9a2b38fbf1bf17b1612ef8a = L.circle(
+                [37.4835, 126.9735],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.22, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 600, "stroke": true, "weight": 2}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_b3f98ec1576966df5a405c65eaed71ca = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_9b842a3af9d36953d3b54cc351ab63d1 = $(`<div id="html_9b842a3af9d36953d3b54cc351ab63d1" style="width: 100.0%; height: 100.0%;"><b>[동작구] 다세대주택(반지하)</b><br>5등급: 매우 위험 (버퍼 600m)<br>노후연수: 30년 / 고도: 9.0m</div>`)[0];
+                popup_b3f98ec1576966df5a405c65eaed71ca.setContent(html_9b842a3af9d36953d3b54cc351ab63d1);
+            
+        
+
+        circle_0097be43c9a2b38fbf1bf17b1612ef8a.bindPopup(popup_b3f98ec1576966df5a405c65eaed71ca)
+        ;
+
+        
+    
+    
+            circle_0097be43c9a2b38fbf1bf17b1612ef8a.bindTooltip(
+                `<div>
+                     동작구 | 5등급: 매우 위험
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_337be6c00762397fa1196bc15476a004 = L.circleMarker(
+                [37.4835, 126.9735],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_47c70ff08e815538f9f6ca0b7c456dd9 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_4691ce7dd8a8bd48d568f4555c6cfc38 = $(`<div id="html_4691ce7dd8a8bd48d568f4555c6cfc38" style="width: 100.0%; height: 100.0%;"><b>[동작구] 다세대주택(반지하)</b><br>5등급: 매우 위험 (버퍼 600m)<br>노후연수: 30년 / 고도: 9.0m</div>`)[0];
+                popup_47c70ff08e815538f9f6ca0b7c456dd9.setContent(html_4691ce7dd8a8bd48d568f4555c6cfc38);
+            
+        
+
+        circle_marker_337be6c00762397fa1196bc15476a004.bindPopup(popup_47c70ff08e815538f9f6ca0b7c456dd9)
+        ;
+
+        
+    
+    
+            circle_marker_337be6c00762397fa1196bc15476a004.bindTooltip(
+                `<div>
+                     동작구 | 다세대주택(반지하) (5등급)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_70547bb88ec5291ab5971466d0f201ea = L.circle(
+                [37.4979, 127.0276],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.22, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 600, "stroke": true, "weight": 2}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_8cda09829cb2c20a7e23ff95ab46302c = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_e4ba2e9bf792494dda78a025021c8c5d = $(`<div id="html_e4ba2e9bf792494dda78a025021c8c5d" style="width: 100.0%; height: 100.0%;"><b>[강남구] 업무/상업시설</b><br>5등급: 매우 위험 (버퍼 600m)<br>노후연수: 12년 / 고도: 10.1m</div>`)[0];
+                popup_8cda09829cb2c20a7e23ff95ab46302c.setContent(html_e4ba2e9bf792494dda78a025021c8c5d);
+            
+        
+
+        circle_70547bb88ec5291ab5971466d0f201ea.bindPopup(popup_8cda09829cb2c20a7e23ff95ab46302c)
+        ;
+
+        
+    
+    
+            circle_70547bb88ec5291ab5971466d0f201ea.bindTooltip(
+                `<div>
+                     강남구 | 5등급: 매우 위험
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_07e44466c0f6ccdccbb4286dc688c025 = L.circleMarker(
+                [37.4979, 127.0276],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_79209402d5093754f93990267f178fd1 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_f8e98f33daca82b81608e3e999cd8ffb = $(`<div id="html_f8e98f33daca82b81608e3e999cd8ffb" style="width: 100.0%; height: 100.0%;"><b>[강남구] 업무/상업시설</b><br>5등급: 매우 위험 (버퍼 600m)<br>노후연수: 12년 / 고도: 10.1m</div>`)[0];
+                popup_79209402d5093754f93990267f178fd1.setContent(html_f8e98f33daca82b81608e3e999cd8ffb);
+            
+        
+
+        circle_marker_07e44466c0f6ccdccbb4286dc688c025.bindPopup(popup_79209402d5093754f93990267f178fd1)
+        ;
+
+        
+    
+    
+            circle_marker_07e44466c0f6ccdccbb4286dc688c025.bindTooltip(
+                `<div>
+                     강남구 | 업무/상업시설 (5등급)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_31e1c6762e575277e89f09d93055097a = L.circle(
+                [37.4837, 127.0158],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.22, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 600, "stroke": true, "weight": 2}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_c4f73abdf730bc14cd28d5aa7e9fd22f = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_a6d32743bacb6283593042497b929b2c = $(`<div id="html_a6d32743bacb6283593042497b929b2c" style="width: 100.0%; height: 100.0%;"><b>[서초구] 다세대주택(반지하)</b><br>5등급: 매우 위험 (버퍼 600m)<br>노후연수: 25년 / 고도: 9.8m</div>`)[0];
+                popup_c4f73abdf730bc14cd28d5aa7e9fd22f.setContent(html_a6d32743bacb6283593042497b929b2c);
+            
+        
+
+        circle_31e1c6762e575277e89f09d93055097a.bindPopup(popup_c4f73abdf730bc14cd28d5aa7e9fd22f)
+        ;
+
+        
+    
+    
+            circle_31e1c6762e575277e89f09d93055097a.bindTooltip(
+                `<div>
+                     서초구 | 5등급: 매우 위험
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f42e3aacc068e9719f6a4099cb7d4159 = L.circleMarker(
+                [37.4837, 127.0158],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_75801f656e9199a40d13993a48a7ae3e = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_6944572c895b451cb893740aab3d69d9 = $(`<div id="html_6944572c895b451cb893740aab3d69d9" style="width: 100.0%; height: 100.0%;"><b>[서초구] 다세대주택(반지하)</b><br>5등급: 매우 위험 (버퍼 600m)<br>노후연수: 25년 / 고도: 9.8m</div>`)[0];
+                popup_75801f656e9199a40d13993a48a7ae3e.setContent(html_6944572c895b451cb893740aab3d69d9);
+            
+        
+
+        circle_marker_f42e3aacc068e9719f6a4099cb7d4159.bindPopup(popup_75801f656e9199a40d13993a48a7ae3e)
+        ;
+
+        
+    
+    
+            circle_marker_f42e3aacc068e9719f6a4099cb7d4159.bindTooltip(
+                `<div>
+                     서초구 | 다세대주택(반지하) (5등급)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_36fd0dd4908f2015390a09ceeb0c786a = L.circle(
+                [37.488, 126.875],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.22, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 600, "stroke": true, "weight": 2}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_c844670d2137a474ece94fabae64a947 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_9a2f643a5e9612f6c95b6ced2ee4d5fe = $(`<div id="html_9a2f643a5e9612f6c95b6ced2ee4d5fe" style="width: 100.0%; height: 100.0%;"><b>[구로구] 단독주택(반지하)</b><br>5등급: 매우 위험 (버퍼 600m)<br>노후연수: 34년 / 고도: 8.9m</div>`)[0];
+                popup_c844670d2137a474ece94fabae64a947.setContent(html_9a2f643a5e9612f6c95b6ced2ee4d5fe);
+            
+        
+
+        circle_36fd0dd4908f2015390a09ceeb0c786a.bindPopup(popup_c844670d2137a474ece94fabae64a947)
+        ;
+
+        
+    
+    
+            circle_36fd0dd4908f2015390a09ceeb0c786a.bindTooltip(
+                `<div>
+                     구로구 | 5등급: 매우 위험
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_bf9bb561a8207258651c27f6b57027a3 = L.circleMarker(
+                [37.488, 126.875],
+                {"bubblingMouseEvents": true, "color": "#d73027", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d73027", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1.5}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_365b18b07f351421af3a3b2b36b96e9b = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_587341095ef1533a0022acf2bf580e4b = $(`<div id="html_587341095ef1533a0022acf2bf580e4b" style="width: 100.0%; height: 100.0%;"><b>[구로구] 단독주택(반지하)</b><br>5등급: 매우 위험 (버퍼 600m)<br>노후연수: 34년 / 고도: 8.9m</div>`)[0];
+                popup_365b18b07f351421af3a3b2b36b96e9b.setContent(html_587341095ef1533a0022acf2bf580e4b);
+            
+        
+
+        circle_marker_bf9bb561a8207258651c27f6b57027a3.bindPopup(popup_365b18b07f351421af3a3b2b36b96e9b)
+        ;
+
+        
+    
+    
+            circle_marker_bf9bb561a8207258651c27f6b57027a3.bindTooltip(
+                `<div>
+                     구로구 | 단독주택(반지하) (5등급)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_38e0ec383a186ac04b306b2ca74852f6 = L.circle(
+                [37.5145, 127.1059],
+                {"bubblingMouseEvents": true, "color": "#91bfdb", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#91bfdb", "fillOpacity": 0.22, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 200, "stroke": true, "weight": 2}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_c88acd2cbab9b1fd3b533435c3dca5c4 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_5bf8a699e8c8a5abc084d4cb1c1dce2a = $(`<div id="html_5bf8a699e8c8a5abc084d4cb1c1dce2a" style="width: 100.0%; height: 100.0%;"><b>[송파구] 공동주택(아파트)</b><br>2등급: 낮음 (버퍼 200m)<br>노후연수: 5년 / 고도: 18.2m</div>`)[0];
+                popup_c88acd2cbab9b1fd3b533435c3dca5c4.setContent(html_5bf8a699e8c8a5abc084d4cb1c1dce2a);
+            
+        
+
+        circle_38e0ec383a186ac04b306b2ca74852f6.bindPopup(popup_c88acd2cbab9b1fd3b533435c3dca5c4)
+        ;
+
+        
+    
+    
+            circle_38e0ec383a186ac04b306b2ca74852f6.bindTooltip(
+                `<div>
+                     송파구 | 2등급: 낮음
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_37be61066af172f8d6a9cb66917c6068 = L.circleMarker(
+                [37.5145, 127.1059],
+                {"bubblingMouseEvents": true, "color": "#91bfdb", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#91bfdb", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1.5}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_a819268256ea7bf4ae50453ceb8a824d = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_a80d88bd3d1c7ee406e999ac62816766 = $(`<div id="html_a80d88bd3d1c7ee406e999ac62816766" style="width: 100.0%; height: 100.0%;"><b>[송파구] 공동주택(아파트)</b><br>2등급: 낮음 (버퍼 200m)<br>노후연수: 5년 / 고도: 18.2m</div>`)[0];
+                popup_a819268256ea7bf4ae50453ceb8a824d.setContent(html_a80d88bd3d1c7ee406e999ac62816766);
+            
+        
+
+        circle_marker_37be61066af172f8d6a9cb66917c6068.bindPopup(popup_a819268256ea7bf4ae50453ceb8a824d)
+        ;
+
+        
+    
+    
+            circle_marker_37be61066af172f8d6a9cb66917c6068.bindTooltip(
+                `<div>
+                     송파구 | 공동주택(아파트) (2등급)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_23db8e894ec2f5e36c1314bed96f2882 = L.circle(
+                [37.5301, 127.1238],
+                {"bubblingMouseEvents": true, "color": "#91bfdb", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#91bfdb", "fillOpacity": 0.22, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 200, "stroke": true, "weight": 2}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_dc4d134a8b05402d42fca3f8008c5ff2 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_48c5e34767e4c50eeac7cd40f3642e73 = $(`<div id="html_48c5e34767e4c50eeac7cd40f3642e73" style="width: 100.0%; height: 100.0%;"><b>[강동구] 공동주택(아파트)</b><br>2등급: 낮음 (버퍼 200m)<br>노후연수: 7년 / 고도: 19.5m</div>`)[0];
+                popup_dc4d134a8b05402d42fca3f8008c5ff2.setContent(html_48c5e34767e4c50eeac7cd40f3642e73);
+            
+        
+
+        circle_23db8e894ec2f5e36c1314bed96f2882.bindPopup(popup_dc4d134a8b05402d42fca3f8008c5ff2)
+        ;
+
+        
+    
+    
+            circle_23db8e894ec2f5e36c1314bed96f2882.bindTooltip(
+                `<div>
+                     강동구 | 2등급: 낮음
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f27df32c0aa01c43e34fc20369349107 = L.circleMarker(
+                [37.5301, 127.1238],
+                {"bubblingMouseEvents": true, "color": "#91bfdb", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#91bfdb", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1.5}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_0ae7a79db047d0a98c1af2ffbff6b681 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_0346e84391eb014465c15e3d0e68e801 = $(`<div id="html_0346e84391eb014465c15e3d0e68e801" style="width: 100.0%; height: 100.0%;"><b>[강동구] 공동주택(아파트)</b><br>2등급: 낮음 (버퍼 200m)<br>노후연수: 7년 / 고도: 19.5m</div>`)[0];
+                popup_0ae7a79db047d0a98c1af2ffbff6b681.setContent(html_0346e84391eb014465c15e3d0e68e801);
+            
+        
+
+        circle_marker_f27df32c0aa01c43e34fc20369349107.bindPopup(popup_0ae7a79db047d0a98c1af2ffbff6b681)
+        ;
+
+        
+    
+    
+            circle_marker_f27df32c0aa01c43e34fc20369349107.bindTooltip(
+                `<div>
+                     강동구 | 공동주택(아파트) (2등급)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_4ec2d155e84b20e5b51a8ff119f19bbf = L.circle(
+                [37.6027, 126.9291],
+                {"bubblingMouseEvents": true, "color": "#4575b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4575b4", "fillOpacity": 0.22, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_9dc826f8bf5772e5c4f94cdb2fdac245 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_e4e0416693629445d77d58edac9a5b8e = $(`<div id="html_e4e0416693629445d77d58edac9a5b8e" style="width: 100.0%; height: 100.0%;"><b>[은평구] 단독주택</b><br>1등급: 매우 낮음 (버퍼 100m)<br>노후연수: 18년 / 고도: 28.4m</div>`)[0];
+                popup_9dc826f8bf5772e5c4f94cdb2fdac245.setContent(html_e4e0416693629445d77d58edac9a5b8e);
+            
+        
+
+        circle_4ec2d155e84b20e5b51a8ff119f19bbf.bindPopup(popup_9dc826f8bf5772e5c4f94cdb2fdac245)
+        ;
+
+        
+    
+    
+            circle_4ec2d155e84b20e5b51a8ff119f19bbf.bindTooltip(
+                `<div>
+                     은평구 | 1등급: 매우 낮음
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1c9fd76927e07e1fe3a7d2cac207ac90 = L.circleMarker(
+                [37.6027, 126.9291],
+                {"bubblingMouseEvents": true, "color": "#4575b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4575b4", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1.5}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_ccfbe5d2a12374285910e933c4743fd2 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_2ef6384c8f607e1af46d65f24254df9f = $(`<div id="html_2ef6384c8f607e1af46d65f24254df9f" style="width: 100.0%; height: 100.0%;"><b>[은평구] 단독주택</b><br>1등급: 매우 낮음 (버퍼 100m)<br>노후연수: 18년 / 고도: 28.4m</div>`)[0];
+                popup_ccfbe5d2a12374285910e933c4743fd2.setContent(html_2ef6384c8f607e1af46d65f24254df9f);
+            
+        
+
+        circle_marker_1c9fd76927e07e1fe3a7d2cac207ac90.bindPopup(popup_ccfbe5d2a12374285910e933c4743fd2)
+        ;
+
+        
+    
+    
+            circle_marker_1c9fd76927e07e1fe3a7d2cac207ac90.bindTooltip(
+                `<div>
+                     은평구 | 단독주택 (1등급)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_7239755554a58f4b5c52d85369b2e3f6 = L.circle(
+                [37.5894, 127.0167],
+                {"bubblingMouseEvents": true, "color": "#4575b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4575b4", "fillOpacity": 0.22, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_cde7ed02222c262c49037efdcc8fc4bb = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_bbd06c78293d903772f3e07df25fc721 = $(`<div id="html_bbd06c78293d903772f3e07df25fc721" style="width: 100.0%; height: 100.0%;"><b>[성북구] 다세대주택</b><br>1등급: 매우 낮음 (버퍼 100m)<br>노후연수: 16년 / 고도: 26.8m</div>`)[0];
+                popup_cde7ed02222c262c49037efdcc8fc4bb.setContent(html_bbd06c78293d903772f3e07df25fc721);
+            
+        
+
+        circle_7239755554a58f4b5c52d85369b2e3f6.bindPopup(popup_cde7ed02222c262c49037efdcc8fc4bb)
+        ;
+
+        
+    
+    
+            circle_7239755554a58f4b5c52d85369b2e3f6.bindTooltip(
+                `<div>
+                     성북구 | 1등급: 매우 낮음
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_c8346852ea7d119dcb1212d9e8ab67de = L.circleMarker(
+                [37.5894, 127.0167],
+                {"bubblingMouseEvents": true, "color": "#4575b4", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#4575b4", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 4, "stroke": true, "weight": 1.5}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+        
+    
+        var popup_df70df222ee4af902731d80cd98c6074 = L.popup({
+  "maxWidth": 240,
+});
+
+        
+            
+                var html_d98e4452cdeadf6633a6d5ccd5a0e230 = $(`<div id="html_d98e4452cdeadf6633a6d5ccd5a0e230" style="width: 100.0%; height: 100.0%;"><b>[성북구] 다세대주택</b><br>1등급: 매우 낮음 (버퍼 100m)<br>노후연수: 16년 / 고도: 26.8m</div>`)[0];
+                popup_df70df222ee4af902731d80cd98c6074.setContent(html_d98e4452cdeadf6633a6d5ccd5a0e230);
+            
+        
+
+        circle_marker_c8346852ea7d119dcb1212d9e8ab67de.bindPopup(popup_df70df222ee4af902731d80cd98c6074)
+        ;
+
+        
+    
+    
+            circle_marker_c8346852ea7d119dcb1212d9e8ab67de.bindTooltip(
+                `<div>
+                     성북구 | 다세대주택 (1등급)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var layer_control_2936d7797419f986866560e0ee0ab506_layers = {
+                base_layers : {
+                    "\uc77c\ubc18 \ub3c4\ub85c\uc9c0\ub3c4 (Esri)" : tile_layer_e24a8075e5dfbbefd834bf280457076f,
+                    "\ubc1d\uc740 \ud68c\uc0c9 \uc9c0\ub3c4 (Esri)" : tile_layer_bc0e7def86fdb0c31e335d09b342cdaf,
+                    "\uc704\uc131 \uc9c0\ub3c4 (Esri)" : tile_layer_ffc38e4d125676e7582428280a24db74,
+                },
+                overlays :  {
+                },
+            };
+            let layer_control_2936d7797419f986866560e0ee0ab506 = L.control.layers(
+                layer_control_2936d7797419f986866560e0ee0ab506_layers.base_layers,
+                layer_control_2936d7797419f986866560e0ee0ab506_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_67b90e92087b0c59af0419c5de9f3fb3);
+
+        
+</script>
+</html>
